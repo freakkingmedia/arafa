@@ -109,7 +109,17 @@
             </label>
             <label>
               Date of birth
-              <input id="dob" name="dob" type="date" required />
+              <span class="dob-input">
+                <select id="dobDay" name="dobDay" required aria-label="Date of birth day">
+                  <option value="">Day</option>
+                </select>
+                <select id="dobMonth" name="dobMonth" required aria-label="Date of birth month">
+                  <option value="">Month</option>
+                </select>
+                <select id="dobYear" name="dobYear" required aria-label="Date of birth year">
+                  <option value="">Year</option>
+                </select>
+              </span>
             </label>
           </div>
 

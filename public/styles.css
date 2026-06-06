@@ -475,6 +475,17 @@ button:focus {
   outline: 0;
 }
 
+.dob-input {
+  display: grid;
+  grid-template-columns: 0.8fr 0.95fr 1.15fr;
+  gap: 6px;
+}
+
+.dob-input select {
+  min-width: 0;
+  padding-inline: 9px;
+}
+
 .photo-row {
   display: flex;
   justify-content: space-between;
@@ -748,6 +759,56 @@ button.primary:hover {
 }
 
 @media (max-width: 900px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  body::before,
+  body::after {
+    display: none;
+  }
+
+  .app-header,
+  .site-footer,
+  .panel,
+  .school-results,
+  input,
+  select,
+  .phone-input,
+  .photo-row,
+  .template-option,
+  .preview-toolbar,
+  .card-stage,
+  .password-shell,
+  .crop-shell {
+    backdrop-filter: none;
+  }
+
+  .app-header,
+  .site-footer,
+  .panel,
+  .card-stage,
+  .id-card {
+    box-shadow: 0 10px 24px rgba(20, 36, 59, 0.12);
+  }
+
+  input,
+  select,
+  .phone-input,
+  .photo-row,
+  .template-option,
+  .preview-toolbar {
+    box-shadow: var(--inner-light);
+  }
+
+  input,
+  select,
+  .phone-input,
+  .template-option,
+  button {
+    transition: none;
+  }
+
   .app-shell {
     padding: 14px;
   }

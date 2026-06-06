@@ -16,20 +16,20 @@ function pt(value) {
 const templates = {
   template1: {
     name: "Arafa English School",
-    image: "/assets/templates/template-1.bmp?v=20260604-arafa-final",
-    password: "arafa123",
+    image: "/assets/templates/template-1.bmp?v=20260606-arafa-icons",
+    password: "arafa55",
     options: { bloodGroup: true },
     photo: { x: 155, y: 282, w: 370, h: 370, radius: 185 },
     fields: {
-      studentName: { x: 55, y: 670, w: 563, size: pt(13), weight: 700, align: "center", color: "#312b63", transform: "upper" },
-      studentClass: { x: 55, y: 720, w: 563, size: pt(7.8), minSize: pt(6.2), weight: 500, align: "center", color: "#312b63", prefix: "Class : " },
-      admissionNo: { x: 55, y: 754, w: 563, size: pt(7.8), minSize: pt(6.2), weight: 500, align: "center", color: "#312b63", prefix: "Adm. No : " },
-      dob: { x: 118, y: 788, w: 270, size: pt(7.6), minSize: pt(6.2), weight: 500, align: "center", color: "#312b63", prefix: "DOB : " },
-      bloodGroup: { x: 364, y: 788, w: 190, size: pt(7.6), minSize: pt(6.2), weight: 500, align: "center", color: "#312b63", prefix: "Blood : " },
-      guardianName: { x: 154, y: 824, w: 414, size: pt(7.8), minSize: pt(6), weight: 500, color: "#312b63" },
-      houseName: { x: 154, y: 866, w: 414, size: pt(7.8), minSize: pt(6), weight: 500, color: "#312b63" },
-      place: { x: 154, y: 909, w: 414, size: pt(7.8), minSize: pt(6), weight: 500, color: "#312b63" },
-      phone: { x: 154, y: 956, w: 330, size: pt(7.8), minSize: pt(6), weight: 500, color: "#312b63" }
+      studentName: { x: 55, y: 670, w: 563, size: pt(13), weight: 700, align: "center", color: "#000000", transform: "upper" },
+      studentClass: { x: 154, y: 720, w: 414, size: pt(7.8), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Class : " },
+      admissionNo: { x: 154, y: 754, w: 414, size: pt(7.8), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Adm. No : " },
+      dob: { x: 154, y: 788, w: 230, size: pt(7.6), minSize: pt(5.8), weight: 500, color: "#000000", prefix: "DOB : " },
+      bloodGroup: { x: 414, y: 788, w: 160, size: pt(7.6), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Blood : " },
+      guardianName: { x: 154, y: 822, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
+      houseName: { x: 154, y: 870, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
+      place: { x: 154, y: 916, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
+      phone: { x: 154, y: 970, w: 330, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" }
     }
   },
   template2: {
@@ -48,6 +48,24 @@ const templates = {
       houseName: { x: 86, y: 890, w: 510, size: pt(9.5), weight: 400, color: "#000000", minSize: pt(6.5) },
       place: { x: 86, y: 943, w: 510, size: pt(9.5), weight: 400, color: "#000000" },
       phone: { x: 86, y: 993, w: 510, size: pt(9.5), weight: 400, color: "#000000" }
+    }
+  },
+  template3: {
+    name: "MVM LPS Netumpura",
+    image: "/assets/templates/template-3.bmp?v=20260605-netumpura-v2",
+    password: "mvm22",
+    options: { bloodGroup: true },
+    photo: { x: 187, y: 320, w: 309, h: 312, radius: 154 },
+    fields: {
+      studentName: { x: 55, y: 700, w: 563, size: pt(11.5), minSize: pt(8), weight: 700, align: "center", color: "#ffffff", transform: "upper" },
+      studentClass: { x: 55, y: 748, w: 563, size: pt(8), minSize: pt(6), weight: 500, align: "center", color: "#ffffff", prefix: "Class : " },
+      admissionNo: { x: 55, y: 778, w: 563, size: pt(8), minSize: pt(6), weight: 500, align: "center", color: "#ffffff", prefix: "Adm. No : " },
+      dob: { x: 134, y: 808, w: 245, size: pt(7.8), minSize: pt(5.8), weight: 500, color: "#ffffff", prefix: "DOB : " },
+      bloodGroup: { x: 384, y: 808, w: 180, size: pt(7.8), minSize: pt(5.8), weight: 500, color: "#ffffff", prefix: "Blood : " },
+      guardianName: { x: 134, y: 846, w: 430, size: pt(8.8), minSize: pt(6), weight: 500, color: "#ffffff" },
+      houseName: { x: 134, y: 897, w: 430, size: pt(8.8), minSize: pt(6), weight: 500, color: "#ffffff" },
+      place: { x: 134, y: 946, w: 430, size: pt(8.8), minSize: pt(6), weight: 500, color: "#ffffff" },
+      phone: { x: 134, y: 994, w: 330, size: pt(8.8), minSize: pt(6), weight: 500, color: "#ffffff" }
     }
   }
 };
@@ -96,7 +114,9 @@ const inputs = {
   studentClass: document.getElementById("studentClass"),
   division: document.getElementById("division"),
   bloodGroup: document.getElementById("bloodGroup"),
-  dob: document.getElementById("dob"),
+  dobDay: document.getElementById("dobDay"),
+  dobMonth: document.getElementById("dobMonth"),
+  dobYear: document.getElementById("dobYear"),
   guardianName: document.getElementById("guardianName"),
   houseName: document.getElementById("houseName"),
   place: document.getElementById("place"),
@@ -111,6 +131,22 @@ function titleCase(value) {
   return value.toLowerCase().replace(/\b[a-z]/g, char => char.toUpperCase());
 }
 
+function cleanNameValue(value) {
+  return value.replace(/[^a-z\s.'-]/gi, "").replace(/\s{2,}/g, " ");
+}
+
+function makeTwoDigit(value) {
+  return String(value).padStart(2, "0");
+}
+
+function getDobValue() {
+  const day = inputs.dobDay.value;
+  const month = inputs.dobMonth.value;
+  const year = inputs.dobYear.value;
+  if (!day || !month || !year) return "";
+  return `${year}-${makeTwoDigit(month)}-${makeTwoDigit(day)}`;
+}
+
 function getFormData() {
   const phoneDigits = inputs.phone.value.replace(/\D/g, "").slice(0, 10);
   return {
@@ -119,7 +155,7 @@ function getFormData() {
     studentClass: inputs.studentClass.value,
     division: inputs.division.value,
     bloodGroup: inputs.bloodGroup.value,
-    dob: inputs.dob.value,
+    dob: getDobValue(),
     guardianName: titleCase(inputs.guardianName.value),
     houseName: titleCase(inputs.houseName.value),
     place: titleCase(inputs.place.value),
@@ -510,7 +546,7 @@ function drawFittedText(ctx, text, config) {
   ctx.textBaseline = "top";
   ctx.font = `${config.weight || 700} ${size}px ${FONT_FAMILY}`;
   while (ctx.measureText(text).width > config.w && size > minSize) {
-    size -= 1;
+    size -= 0.5;
     ctx.font = `${config.weight || 700} ${size}px ${FONT_FAMILY}`;
   }
   let x = config.x;
@@ -800,8 +836,28 @@ function parseJsonText(text) {
   }
 }
 
+function populateDobSelects() {
+  appendNumberOptions(inputs.dobDay, 1, 31, makeTwoDigit);
+  appendNumberOptions(inputs.dobMonth, 1, 12, makeTwoDigit);
+  appendNumberOptions(inputs.dobYear, 2000, 2026, value => String(value));
+}
+
+function appendNumberOptions(select, start, end, formatLabel) {
+  for (let value = start; value <= end; value += 1) {
+    const option = document.createElement("option");
+    option.value = String(value);
+    option.textContent = formatLabel(value);
+    select.appendChild(option);
+  }
+}
+
+populateDobSelects();
+
 for (const input of Object.values(inputs).filter(input => input !== inputs.templateKey && input !== inputs.schoolSearch)) {
   const updateFromInput = () => {
+    if (input === inputs.studentName || input === inputs.guardianName) {
+      input.value = cleanNameValue(input.value);
+    }
     applyTemplate();
   };
   input.addEventListener("input", updateFromInput);

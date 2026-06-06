@@ -3,12 +3,16 @@ const path = require("path");
 
 const sources = [
   {
-    input: "C:/Users/shibi/OneDrive/Pictures/arafa final/arafa.psd",
+    input: "C:/Users/shibi/Documents/arafa.psd",
     output: path.join(__dirname, "..", "public", "assets", "templates", "template-1.bmp")
   },
   {
     input: "C:/Users/shibi/Desktop/cheruthuruthy.psd",
     output: path.join(__dirname, "..", "public", "assets", "templates", "template-2.bmp")
+  },
+  {
+    input: "C:/Users/shibi/OneDrive/Pictures/arafa final/NETUPURA.psd",
+    output: path.join(__dirname, "..", "public", "assets", "templates", "template-3.bmp")
   }
 ];
 
