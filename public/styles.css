@@ -665,6 +665,16 @@ button.primary:hover {
   pointer-events: none;
 }
 
+.rendered-card-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
 .card-text {
   display: block;
   position: absolute;

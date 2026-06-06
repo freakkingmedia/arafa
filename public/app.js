@@ -92,6 +92,8 @@ const cardPreview = document.getElementById("cardPreview");
 const templateBg = document.getElementById("templateBg");
 const photoLayer = document.getElementById("photoLayer");
 const editableLayer = document.getElementById("editableLayer");
+const renderedCardCanvas = document.getElementById("renderedCardCanvas");
+const renderedCardCtx = renderedCardCanvas.getContext("2d");
 const schoolSearch = document.getElementById("schoolSearch");
 const schoolResults = document.getElementById("schoolResults");
 const passwordDialog = document.getElementById("passwordDialog");
@@ -258,6 +260,7 @@ function renderPreview() {
     node.textContent = formatTemplateText(value, config);
     fitPreviewText(node, config, scale);
   }
+  scheduleCanvasPreviewRender();
 }
 
 function fitPreviewText(node, config, scale) {
@@ -268,6 +271,22 @@ function fitPreviewText(node, config, scale) {
     size -= 0.5;
     node.style.fontSize = `${size}px`;
   }
+}
+
+let previewRenderToken = 0;
+
+function scheduleCanvasPreviewRender() {
+  const token = ++previewRenderToken;
+  requestAnimationFrame(async () => {
+    try {
+      const canvas = await renderCardCanvas({ syncPreview: false });
+      if (token !== previewRenderToken) return;
+      renderedCardCtx.clearRect(0, 0, renderedCardCanvas.width, renderedCardCanvas.height);
+      renderedCardCtx.drawImage(canvas, 0, 0);
+    } catch (error) {
+      console.warn("Preview render failed", error);
+    }
+  });
 }
 
 function formatTemplateText(value, config) {
@@ -497,8 +516,10 @@ function applyCrop() {
   renderPreview();
 }
 
-async function renderCardCanvas() {
-  renderPreview();
+async function renderCardCanvas(options = {}) {
+  if (options.syncPreview !== false) {
+    renderPreview();
+  }
   if (document.fonts && document.fonts.ready) {
     await document.fonts.ready;
   }
