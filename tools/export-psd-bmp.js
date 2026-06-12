@@ -13,6 +13,10 @@ const sources = [
   {
     input: "C:/Users/shibi/OneDrive/Pictures/arafa final/NETUPURA.psd",
     output: path.join(__dirname, "..", "public", "assets", "templates", "template-3.bmp")
+  },
+  {
+    input: "C:/Users/shibi/Desktop/GALAXY NEW 1.psd",
+    output: path.join(__dirname, "..", "public", "assets", "templates", "template-4.bmp")
   }
 ];
 

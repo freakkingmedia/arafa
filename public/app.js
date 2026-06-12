@@ -1,5 +1,7 @@
 const TEMPLATE_WIDTH = 673;
 const TEMPLATE_HEIGHT = 1063;
+const PDF_WIDTH_PT = (5.7 / 2.54) * 72;
+const PDF_HEIGHT_PT = (9 / 2.54) * 72;
 const FONT_FAMILY = "Poppins, Arial, sans-serif";
 const PRINT_POINT_SCALE = 3.52;
 const PHOTO_LIMIT_MB = 2;
@@ -26,10 +28,10 @@ const templates = {
       admissionNo: { x: 154, y: 754, w: 414, size: pt(7.8), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Adm. No : " },
       dob: { x: 154, y: 788, w: 230, size: pt(7.6), minSize: pt(5.8), weight: 500, color: "#000000", prefix: "DOB : " },
       bloodGroup: { x: 414, y: 788, w: 160, size: pt(7.6), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Blood : " },
-      guardianName: { x: 154, y: 822, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
-      houseName: { x: 154, y: 870, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
-      place: { x: 154, y: 916, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
-      phone: { x: 154, y: 970, w: 330, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" }
+      guardianName: { x: 154, y: 824, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
+      houseName: { x: 154, y: 872, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
+      place: { x: 154, y: 918, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
+      phone: { x: 154, y: 972, w: 330, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" }
     }
   },
   template2: {
@@ -66,6 +68,24 @@ const templates = {
       houseName: { x: 134, y: 897, w: 430, size: pt(8.8), minSize: pt(6), weight: 500, color: "#ffffff" },
       place: { x: 134, y: 946, w: 430, size: pt(8.8), minSize: pt(6), weight: 500, color: "#ffffff" },
       phone: { x: 134, y: 994, w: 330, size: pt(8.8), minSize: pt(6), weight: 500, color: "#ffffff" }
+    }
+  },
+  template4: {
+    name: "Galaxy School",
+    image: "/assets/templates/template-4.bmp?v=20260612-galaxy-centered-v2",
+    password: "galaxy31",
+    options: { bloodGroup: true },
+    photo: { x: 178, y: 327, w: 327, h: 327, radius: 163 },
+    fields: {
+      studentName: { x: 55, y: 660, w: 563, size: pt(12), minSize: pt(8), weight: 700, align: "center", color: "#003b91", transform: "upper" },
+      studentClass: { x: 55, y: 708, w: 563, size: pt(8), minSize: pt(6), weight: 500, align: "center", color: "#003b91", prefix: "Class : " },
+      admissionNo: { x: 55, y: 736, w: 563, size: pt(8), minSize: pt(6), weight: 500, align: "center", color: "#003b91", prefix: "Adm. No : " },
+      dob: { x: 134, y: 764, w: 245, size: pt(7.8), minSize: pt(5.8), weight: 500, color: "#003b91", prefix: "DOB : " },
+      bloodGroup: { x: 394, y: 764, w: 180, size: pt(7.8), minSize: pt(5.8), weight: 500, color: "#003b91", prefix: "Blood : " },
+      guardianName: { x: 134, y: 793, w: 430, size: pt(8.8), minSize: pt(6), weight: 500, color: "#003b91" },
+      houseName: { x: 134, y: 843, w: 430, size: pt(8.8), minSize: pt(6), weight: 500, color: "#003b91" },
+      place: { x: 134, y: 893, w: 430, size: pt(8.8), minSize: pt(6), weight: 500, color: "#003b91" },
+      phone: { x: 134, y: 942, w: 330, size: pt(8.8), minSize: pt(6), weight: 500, color: "#003b91" }
     }
   }
 };
@@ -156,7 +176,7 @@ function getFormData() {
     admissionNo: inputs.admissionNo.value.trim().replace(/[^a-z0-9/-]/gi, "").toUpperCase(),
     studentClass: inputs.studentClass.value,
     division: inputs.division.value,
-    bloodGroup: inputs.bloodGroup.value,
+    bloodGroup: inputs.bloodGroup.value.trim(),
     dob: getDobValue(),
     guardianName: titleCase(inputs.guardianName.value),
     houseName: titleCase(inputs.houseName.value),
@@ -680,12 +700,14 @@ async function createPdfBase64() {
 
 function buildImagePdf(jpegBase64, width, height) {
   const jpegBytes = base64ToBytes(jpegBase64);
+  const pageWidth = PDF_WIDTH_PT;
+  const pageHeight = PDF_HEIGHT_PT;
   const objects = [];
   objects.push("<< /Type /Catalog /Pages 2 0 R >>");
   objects.push("<< /Type /Pages /Kids [3 0 R] /Count 1 >>");
-  objects.push(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${width} ${height}] /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>`);
+  objects.push(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${formatPdfNumber(pageWidth)} ${formatPdfNumber(pageHeight)}] /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>`);
   objects.push({ stream: jpegBytes, dict: `<< /Type /XObject /Subtype /Image /Width ${width} /Height ${height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpegBytes.length} >>` });
-  const content = asciiBytes(`q\n${width} 0 0 ${height} 0 0 cm\n/Im0 Do\nQ\n`);
+  const content = asciiBytes(`q\n${formatPdfNumber(pageWidth)} 0 0 ${formatPdfNumber(pageHeight)} 0 0 cm\n/Im0 Do\nQ\n`);
   objects.push({ stream: content, dict: `<< /Length ${content.length} >>` });
 
   const chunks = [asciiBytes("%PDF-1.4\n")];
@@ -712,6 +734,10 @@ function buildImagePdf(jpegBase64, width, height) {
 
 function asciiBytes(text) {
   return new TextEncoder().encode(text);
+}
+
+function formatPdfNumber(value) {
+  return Number(value.toFixed(4)).toString();
 }
 
 function totalLength(chunks) {
