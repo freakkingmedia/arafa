@@ -72,7 +72,7 @@ const templates = {
   },
   template4: {
     name: "Galaxy School",
-    image: "/assets/templates/template-4.bmp?v=20260612-galaxy-centered-v2",
+    image: "/assets/templates/template-4.bmp?v=20260613-galaxy",
     password: "galaxy31",
     options: { bloodGroup: false },
     photo: { x: 178, y: 327, w: 327, h: 327, radius: 163 },
