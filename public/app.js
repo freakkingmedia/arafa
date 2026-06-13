@@ -75,7 +75,7 @@ const templates = {
     image: "/assets/templates/template-4.bmp?v=20260613-galaxy-photo-align",
     password: "galaxy31",
     options: { bloodGroup: false },
-    photo: { x: 168, y: 321, w: 320, h: 320, radius: 160 },
+    photo: { x: 168, y: 321, w: 320, h: 320, radius: 162 },
     fields: {
       studentName: { x: 55, y: 660, w: 563, size: pt(12), minSize: pt(8), weight: 700, align: "center", color: "#000000", transform: "upper" },
       studentClass: { x: 134, y: 712, w: 210, size: pt(8), minSize: pt(6), weight: 500, color: "#000000", prefix: "Class : " },
