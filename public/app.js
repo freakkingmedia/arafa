@@ -72,19 +72,19 @@ const templates = {
   },
   template4: {
     name: "Galaxy School",
-    image: "/assets/templates/template-4.bmp?v=20260613-galaxy",
+    image: "/assets/templates/template-4.bmp?v=20260613-galaxy-photo-align",
     password: "galaxy31",
     options: { bloodGroup: false },
-    photo: { x: 178, y: 327, w: 327, h: 327, radius: 163 },
+    photo: { x: 165, y: 319, w: 320, h: 320, radius: 160 },
     fields: {
-      studentName: { x: 55, y: 660, w: 563, size: pt(12), minSize: pt(8), weight: 700, align: "center", color: "#003b91", transform: "upper" },
-      studentClass: { x: 134, y: 712, w: 210, size: pt(8), minSize: pt(6), weight: 500, color: "#003b91", prefix: "Class : " },
-      admissionNo: { x: 330, y: 712, w: 250, size: pt(8), minSize: pt(6), weight: 500, color: "#003b91", prefix: "Adm. No : " },
-      dob: { x: 134, y: 748, w: 245, size: pt(7.8), minSize: pt(5.8), weight: 500, color: "#003b91", prefix: "DOB : " },
-      guardianName: { x: 134, y: 793, w: 430, size: pt(8.8), minSize: pt(6), weight: 500, color: "#003b91" },
-      houseName: { x: 134, y: 843, w: 430, size: pt(8.8), minSize: pt(6), weight: 500, color: "#003b91" },
-      place: { x: 134, y: 893, w: 430, size: pt(8.8), minSize: pt(6), weight: 500, color: "#003b91" },
-      phone: { x: 134, y: 942, w: 330, size: pt(8.8), minSize: pt(6), weight: 500, color: "#003b91" }
+      studentName: { x: 55, y: 660, w: 563, size: pt(12), minSize: pt(8), weight: 700, align: "center", color: "#000000", transform: "upper" },
+      studentClass: { x: 134, y: 712, w: 210, size: pt(8), minSize: pt(6), weight: 500, color: "#000000", prefix: "Class : " },
+      admissionNo: { x: 330, y: 712, w: 250, size: pt(8), minSize: pt(6), weight: 500, color: "#000000", prefix: "Adm. No : " },
+      dob: { x: 134, y: 748, w: 245, size: pt(7.8), minSize: pt(5.8), weight: 500, color: "#000000", prefix: "DOB : " },
+      guardianName: { x: 134, y: 793, w: 430, size: pt(8.8), minSize: pt(6), weight: 500, color: "#000000" },
+      houseName: { x: 134, y: 843, w: 430, size: pt(8.8), minSize: pt(6), weight: 500, color: "#000000" },
+      place: { x: 134, y: 893, w: 430, size: pt(8.8), minSize: pt(6), weight: 500, color: "#000000" },
+      phone: { x: 134, y: 942, w: 330, size: pt(8.8), minSize: pt(6), weight: 500, color: "#000000" }
     }
   }
 };
