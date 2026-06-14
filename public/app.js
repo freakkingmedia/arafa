@@ -89,14 +89,14 @@ const templates = {
   },
   template5: {
     name: "ALP School Peringode",
-    image: "/assets/templates/template-5.bmp?v=20260615-peringode-class-adm",
+    image: "/assets/templates/template-5.bmp?v=20260615-peringode-adm-right",
     password: "p24",
     options: { bloodGroup: true },
     photo: { x: 159, y: 280, w: 360, h: 360, radius: 180 },
     fields: {
       studentName: { x: 55, y: 674, w: 563, size: pt(13), weight: 700, align: "center", color: "#000000", transform: "upper" },
       studentClass: { x: 154, y: 728, w: 210, size: pt(7.8), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Class : " },
-      admissionNo: { x: 374, y: 728, w: 194, size: pt(7.8), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Adm. No : " },
+      admissionNo: { x: 400, y: 728, w: 168, size: pt(7.8), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Adm. No : " },
       dob: { x: 154, y: 762, w: 230, size: pt(7.6), minSize: pt(5.8), weight: 500, color: "#000000", prefix: "DOB : " },
       bloodGroup: { x: 414, y: 762, w: 160, size: pt(7.6), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Blood : " },
       guardianName: { x: 154, y: 835, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
