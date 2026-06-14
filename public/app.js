@@ -89,10 +89,10 @@ const templates = {
   },
   template5: {
     name: "ALP School Peringode",
-    image: "/assets/templates/template-5.bmp?v=20260614-peringode-v4",
+    image: "/assets/templates/template-5.bmp?v=20260614-peringode-v5",
     password: "p24",
     options: { bloodGroup: true },
-    photo: { x: 158, y: 289, w: 354, h: 354, radius: 177 },
+    photo: { x: 159, y: 280, w: 360, h: 360, radius: 180 },
     fields: {
       studentName: { x: 55, y: 674, w: 563, size: pt(13), weight: 700, align: "center", color: "#000000", transform: "upper" },
       studentClass: { x: 154, y: 728, w: 414, size: pt(7.8), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Class : " },
