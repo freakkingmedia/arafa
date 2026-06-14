@@ -4,6 +4,7 @@ const PDF_WIDTH_PT = (5.7 / 2.54) * 72;
 const PDF_HEIGHT_PT = (9 / 2.54) * 72;
 const FONT_FAMILY = "Poppins, Arial, sans-serif";
 const PRINT_POINT_SCALE = 3.52;
+const PERINGODE_CLASS_OPTIONS = ["LKG", "UKG", "I", "II", "III", "IV", "V", "VI", "VII"];
 const PHOTO_LIMIT_MB = 2;
 const PHOTO_SIZE_ROUNDING_BUFFER_BYTES = 512 * 1024;
 const MAX_PHOTO_BYTES = PHOTO_LIMIT_MB * 1024 * 1024 + PHOTO_SIZE_ROUNDING_BUFFER_BYTES;
@@ -89,14 +90,15 @@ const templates = {
   },
   template5: {
     name: "ALP School Peringode",
-    image: "/assets/templates/template-5.bmp?v=20260615-peringode-adm-right",
+    image: "/assets/templates/template-5.bmp?v=20260615-peringode-inline-adm",
     password: "p24",
     options: { bloodGroup: true },
+    classOptions: PERINGODE_CLASS_OPTIONS,
     photo: { x: 159, y: 280, w: 360, h: 360, radius: 180 },
     fields: {
       studentName: { x: 55, y: 674, w: 563, size: pt(13), weight: 700, align: "center", color: "#000000", transform: "upper" },
       studentClass: { x: 154, y: 728, w: 210, size: pt(7.8), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Class : " },
-      admissionNo: { x: 400, y: 728, w: 168, size: pt(7.8), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Adm. No : " },
+      admissionNo: { x: 320, y: 728, w: 248, size: pt(7.8), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Adm. No : ", inlineAfter: "studentClass" },
       dob: { x: 154, y: 762, w: 230, size: pt(7.6), minSize: pt(5.8), weight: 500, color: "#000000", prefix: "DOB : " },
       bloodGroup: { x: 414, y: 762, w: 160, size: pt(7.6), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Blood : " },
       guardianName: { x: 154, y: 835, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
@@ -162,6 +164,11 @@ const inputs = {
   phone: document.getElementById("phone")
 };
 
+const defaultStudentClassOptions = Array.from(inputs.studentClass.options).map(option => ({
+  value: option.value,
+  text: option.textContent
+}));
+
 function makeCardId() {
   return `ID-${Math.floor(1000 + Math.random() * 9000)}`;
 }
@@ -221,6 +228,7 @@ function applyTemplate() {
   const scale = getPreviewScale();
   renderEditableHtml(template);
   applyTemplateOptions(template);
+  applyClassOptions(template);
   applySchoolLock();
   templateBg.src = template.image;
   const scalePhoto = template.photo;
@@ -260,6 +268,23 @@ function applyTemplateOptions(template) {
   });
 }
 
+function applyClassOptions(template) {
+  const currentValue = inputs.studentClass.value;
+  const classOptions = template.classOptions
+    ? [{ value: "", text: "Select" }, ...template.classOptions.map(value => ({ value, text: value }))]
+    : defaultStudentClassOptions;
+  const currentOptions = Array.from(inputs.studentClass.options).map(option => option.value).join("|");
+  const nextOptions = classOptions.map(option => option.value).join("|");
+
+  if (currentOptions !== nextOptions) {
+    inputs.studentClass.innerHTML = classOptions
+      .map(option => `<option value="${option.value}">${option.text}</option>`)
+      .join("");
+  }
+
+  inputs.studentClass.value = classOptions.some(option => option.value === currentValue) ? currentValue : "";
+}
+
 function renderEditableHtml(template) {
   const html = Object.keys(template.fields)
     .map(key => `<span class="card-text card-field-${key}" data-field="${key}"></span>`)
@@ -297,6 +322,7 @@ function renderPreview() {
     node.textContent = formatTemplateText(value, config);
     fitPreviewText(node, config, scale);
   }
+  applyInlinePreviewPositions(template, scale);
   scheduleCanvasPreviewRender();
 }
 
@@ -308,6 +334,38 @@ function fitPreviewText(node, config, scale) {
     size -= 0.5;
     node.style.fontSize = `${size}px`;
   }
+}
+
+function applyInlinePreviewPositions(template, scale) {
+  for (const [key, config] of Object.entries(template.fields)) {
+    if (!config.inlineAfter) continue;
+    const node = editableLayer.querySelector(`[data-field="${key}"]`);
+    const anchor = editableLayer.querySelector(`[data-field="${config.inlineAfter}"]`);
+    if (!node || !anchor) continue;
+    const anchorConfig = template.fields[config.inlineAfter];
+    const anchorWidth = measurePreviewText(anchor);
+    const spaceWidth = measurePreviewSpace(anchor);
+    const nextX = anchorConfig.x + (anchorWidth + spaceWidth) / scale;
+    node.style.left = percent(nextX, TEMPLATE_WIDTH);
+    node.style.width = percent(Math.max(80, config.x + config.w - nextX), TEMPLATE_WIDTH);
+  }
+}
+
+function measurePreviewText(node) {
+  if (!node.textContent) return 0;
+  const range = document.createRange();
+  range.selectNodeContents(node);
+  const width = range.getBoundingClientRect().width;
+  range.detach();
+  return width;
+}
+
+function measurePreviewSpace(node) {
+  const style = getComputedStyle(node);
+  const canvas = measurePreviewSpace.canvas || (measurePreviewSpace.canvas = document.createElement("canvas"));
+  const ctx = canvas.getContext("2d");
+  ctx.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+  return ctx.measureText(" ").width;
 }
 
 let previewRenderToken = 0;
@@ -582,10 +640,23 @@ async function renderCardCanvas(options = {}) {
   }
 
   const data = getFormData();
+  const drawnFields = {};
   for (const [key, config] of Object.entries(template.fields)) {
     const raw = fieldValue(key, data);
     const text = formatTemplateText(raw, config);
-    drawFittedText(ctx, text, config);
+    const drawConfig = { ...config };
+    if (config.inlineAfter && drawnFields[config.inlineAfter]) {
+      const anchor = drawnFields[config.inlineAfter];
+      ctx.font = `${config.weight || 700} ${config.size}px ${FONT_FAMILY}`;
+      drawConfig.x = anchor.x + anchor.width + ctx.measureText(" ").width;
+      drawConfig.w = Math.max(80, config.x + config.w - drawConfig.x);
+    }
+    drawnFields[key] = drawFittedText(ctx, text, drawConfig) || {
+      x: drawConfig.x,
+      y: drawConfig.y,
+      width: 0,
+      size: drawConfig.size
+    };
   }
 
   return canvas;
@@ -620,13 +691,14 @@ function drawFittedText(ctx, text, config) {
     const rotatedX = config.align === "center" ? (config.w - ctx.measureText(text).width) / 2 : 0;
     ctx.fillText(text, rotatedX, 0);
     ctx.restore();
-    return;
+    return { x, y: config.y, width: ctx.measureText(text).width, size };
   }
   if (config.lines && config.lines > 1) {
     drawWrappedText(ctx, text, config, size);
-    return;
+    return { x: config.x, y: config.y, width: config.w, size };
   }
   ctx.fillText(text, x, config.y);
+  return { x, y: config.y, width: ctx.measureText(text).width, size };
 }
 
 function drawWrappedText(ctx, text, config, size) {
