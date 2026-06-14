@@ -89,20 +89,20 @@ const templates = {
   },
   template5: {
     name: "ALP School Peringode",
-    image: "/assets/templates/template-5.bmp?v=20260614-peringode",
+    image: "/assets/templates/template-5.bmp?v=20260614-peringode-v2",
     password: "p24",
     options: { bloodGroup: true },
     photo: { x: 155, y: 282, w: 370, h: 370, radius: 185 },
     fields: {
-      studentName: { x: 55, y: 670, w: 563, size: pt(13), weight: 700, align: "center", color: "#000000", transform: "upper" },
-      studentClass: { x: 154, y: 720, w: 414, size: pt(7.8), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Class : " },
-      admissionNo: { x: 154, y: 754, w: 414, size: pt(7.8), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Adm. No : " },
-      dob: { x: 154, y: 788, w: 230, size: pt(7.6), minSize: pt(5.8), weight: 500, color: "#000000", prefix: "DOB : " },
-      bloodGroup: { x: 414, y: 788, w: 160, size: pt(7.6), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Blood : " },
-      guardianName: { x: 154, y: 824, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
-      houseName: { x: 154, y: 872, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
-      place: { x: 154, y: 918, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
-      phone: { x: 154, y: 972, w: 330, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" }
+      studentName: { x: 55, y: 688, w: 563, size: pt(13), weight: 700, align: "center", color: "#000000", transform: "upper" },
+      studentClass: { x: 120, y: 736, w: 220, size: pt(7.8), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Class : " },
+      admissionNo: { x: 335, y: 736, w: 250, size: pt(7.8), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Adm. No : " },
+      dob: { x: 120, y: 774, w: 245, size: pt(7.6), minSize: pt(5.8), weight: 500, color: "#000000", prefix: "DOB : " },
+      bloodGroup: { x: 390, y: 774, w: 170, size: pt(7.6), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Blood : " },
+      guardianName: { x: 154, y: 835, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
+      houseName: { x: 154, y: 878, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
+      place: { x: 154, y: 920, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
+      phone: { x: 154, y: 969, w: 330, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" }
     }
   }
 };
