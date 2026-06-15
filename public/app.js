@@ -90,7 +90,7 @@ const templates = {
   },
   template5: {
     name: "ALP School Peringode",
-    image: "/assets/templates/template-5.bmp?v=20260615-peringode-inline-adm",
+    image: "/assets/templates/template-5.bmp?v=20260615-peringode-three-space-adm",
     password: "p24",
     options: { bloodGroup: true },
     classOptions: PERINGODE_CLASS_OPTIONS,
@@ -98,13 +98,31 @@ const templates = {
     fields: {
       studentName: { x: 55, y: 674, w: 563, size: pt(13), weight: 700, align: "center", color: "#000000", transform: "upper" },
       studentClass: { x: 154, y: 728, w: 210, size: pt(7.8), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Class : " },
-      admissionNo: { x: 320, y: 728, w: 248, size: pt(7.8), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Adm. No : ", inlineAfter: "studentClass" },
+      admissionNo: { x: 320, y: 728, w: 248, size: pt(7.8), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Adm. No : ", inlineAfter: "studentClass", inlineGapSpaces: 3 },
       dob: { x: 154, y: 762, w: 230, size: pt(7.6), minSize: pt(5.8), weight: 500, color: "#000000", prefix: "DOB : " },
       bloodGroup: { x: 414, y: 762, w: 160, size: pt(7.6), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Blood : " },
       guardianName: { x: 154, y: 835, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
       houseName: { x: 154, y: 878, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
       place: { x: 154, y: 920, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
       phone: { x: 154, y: 969, w: 330, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" }
+    }
+  },
+  template6: {
+    name: "GHSS Panjal",
+    image: "/assets/templates/template-6.bmp?v=20260615-panjal",
+    password: "p25",
+    options: { bloodGroup: true },
+    photo: { x: 176, y: 268, w: 333, h: 333, radius: 166 },
+    fields: {
+      studentName: { x: 55, y: 638, w: 563, size: pt(13), weight: 700, align: "center", color: "#000000", transform: "upper" },
+      studentClass: { x: 154, y: 690, w: 414, size: pt(7.8), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Class : " },
+      admissionNo: { x: 154, y: 724, w: 414, size: pt(7.8), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Adm. No : " },
+      dob: { x: 154, y: 758, w: 230, size: pt(7.6), minSize: pt(5.8), weight: 500, color: "#000000", prefix: "DOB : " },
+      bloodGroup: { x: 414, y: 758, w: 160, size: pt(7.6), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Blood : " },
+      guardianName: { x: 154, y: 822, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
+      houseName: { x: 154, y: 870, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
+      place: { x: 154, y: 917, w: 414, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" },
+      phone: { x: 154, y: 965, w: 330, size: pt(8.8), minSize: pt(6.2), weight: 500, color: "#000000" }
     }
   }
 };
@@ -344,7 +362,7 @@ function applyInlinePreviewPositions(template, scale) {
     if (!node || !anchor) continue;
     const anchorConfig = template.fields[config.inlineAfter];
     const anchorWidth = measurePreviewText(anchor);
-    const spaceWidth = measurePreviewSpace(anchor);
+    const spaceWidth = measurePreviewSpace(anchor, config.inlineGapSpaces || 1);
     const nextX = anchorConfig.x + (anchorWidth + spaceWidth) / scale;
     node.style.left = percent(nextX, TEMPLATE_WIDTH);
     node.style.width = percent(Math.max(80, config.x + config.w - nextX), TEMPLATE_WIDTH);
@@ -360,12 +378,12 @@ function measurePreviewText(node) {
   return width;
 }
 
-function measurePreviewSpace(node) {
+function measurePreviewSpace(node, count = 1) {
   const style = getComputedStyle(node);
   const canvas = measurePreviewSpace.canvas || (measurePreviewSpace.canvas = document.createElement("canvas"));
   const ctx = canvas.getContext("2d");
   ctx.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
-  return ctx.measureText(" ").width;
+  return ctx.measureText(" ".repeat(count)).width;
 }
 
 let previewRenderToken = 0;
@@ -648,7 +666,7 @@ async function renderCardCanvas(options = {}) {
     if (config.inlineAfter && drawnFields[config.inlineAfter]) {
       const anchor = drawnFields[config.inlineAfter];
       ctx.font = `${config.weight || 700} ${config.size}px ${FONT_FAMILY}`;
-      drawConfig.x = anchor.x + anchor.width + ctx.measureText(" ").width;
+      drawConfig.x = anchor.x + anchor.width + ctx.measureText(" ".repeat(config.inlineGapSpaces || 1)).width;
       drawConfig.w = Math.max(80, config.x + config.w - drawConfig.x);
     }
     drawnFields[key] = drawFittedText(ctx, text, drawConfig) || {
