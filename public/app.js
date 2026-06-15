@@ -109,10 +109,10 @@ const templates = {
   },
   template6: {
     name: "GHSS Panjal",
-    image: "/assets/templates/template-6.bmp?v=20260615-panjal-photo-inside-border",
+    image: "/assets/templates/template-6.bmp?v=20260615-panjal-photo-small-fill",
     password: "p25",
     options: { bloodGroup: true },
-    photo: { x: 172, y: 278, w: 342, h: 342, radius: 171 },
+    photo: { x: 168, y: 274, w: 350, h: 350, radius: 175 },
     fields: {
       studentName: { x: 55, y: 638, w: 563, size: pt(13), weight: 700, align: "center", color: "#000000", transform: "upper" },
       studentClass: { x: 154, y: 690, w: 414, size: pt(7.8), minSize: pt(6.2), weight: 500, color: "#000000", prefix: "Class : " },
